@@ -34,7 +34,16 @@
         $grade = isset($_POST["grade"]) ? $_POST["grade"] : "";
         $subject = isset($_POST["subject"]) ? $_POST["subject"] : "";
 
+        if(validate($name, $email, $examDate, $grade, $subject)){
+            echo "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+        } else {
+            echo "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
 
+            foreach($errors as $key => $value){
+                echo "<li>" . $value . "</li>";
+            }
+            echo "</ul></div>";
+        }
 
     }
 
@@ -45,11 +54,11 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="name">Name*</label>
-                <input type="text" name="name" class="form-control" checked="checked" maxLength="20" required value="<?= htmlspecialchars($name) ?>"/>
+                <input type="text" name="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" maxLength="20" required value="<?= htmlspecialchars($name) ?>"/>
             </div>
             <div class="col-sm-6 form-group">
                 <label for="email">E-Mail</label>
-                <input type="text" name="email" class="form-control" checked="checked" value="<?= htmlspecialchars($email) ?>"/>
+                <input type="text" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>"/>
             </div>
         </div>
 
@@ -67,12 +76,12 @@
 
             <div class="col-sm-4 form-group">
                 <label for="grade">Note*</label>
-                <input type="number" name="grade" class="form-control" checked="checked" min="1" max="5" required value="<?= htmlspecialchars($grade) ?>"/>
+                <input type="number" name="grade" class="form-control" min="1" max="5" required value="<?= htmlspecialchars($grade) ?>"/>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
-                <input type="date" name="examDate" class="form-control" checked="checked" required onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
+                <input type="date" name="examDate" class="form-control" required onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
             </div>
         </div>
 
