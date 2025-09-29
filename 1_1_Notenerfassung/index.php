@@ -10,6 +10,8 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <title>Notenerfassung</title>
+
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 <div class="container">
@@ -19,7 +21,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="name">Name*</label>
-                <input type="text" name="name" class="form-control" checked="checked"/>
+                <input type="text" name="name" class="form-control" checked="checked" maxLength="20" required/>
             </div>
             <div class="col-sm-6 form-group">
                 <label for="email">E-Mail</label>
@@ -31,7 +33,7 @@
 
             <div class="col-sm-4 form-group">
                 <label for="subject">Fach*</label>
-                <select name="subject" class="custom-select">
+                <select name="subject" class="custom-select" required>
                     <option>Mathematik</option>
                     <option>Deutsch</option>
                     <option>Englisch</option>
@@ -40,12 +42,12 @@
 
             <div class="col-sm-4 form-group">
                 <label for="grade">Note*</label>
-                <input type="number" name="grade" class="form-control" checked="checked"/>
+                <input type="number" name="grade" class="form-control" checked="checked" min="1" max="5" required/>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
-                <input type="date" name="examDate" class="form-control" checked="checked"/>
+                <input type="date" name="examDate" class="form-control" checked="checked" required/>
             </div>
         </div>
 
