@@ -47,7 +47,7 @@
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
-                <input type="date" name="examDate" class="form-control" checked="checked" required/>
+                <input type="date" name="examDate" class="form-control" checked="checked" required onchange="validateExamDate(this)"/>
             </div>
         </div>
 
