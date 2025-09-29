@@ -17,15 +17,39 @@
 <div class="container">
     <h1 class="mt-5 mb-3">Notenerfassung</h1>
 
+    <?php
+
+    require "lib/func.inc.php";
+
+    $name = "";
+    $email = "";
+    $examDate = "";
+    $grade = "";
+    $subject = "";
+
+    if(isset($_POST["submit"])){
+        $name = isset($_POST["name"]) ? $_POST["name"] : "";
+        $email = isset($_POST["email"]) ? $_POST["email"] : "";
+        $examDate = isset($_POST["examDate"]) ? $_POST["examDate"] : "";
+        $grade = isset($_POST["grade"]) ? $_POST["grade"] : "";
+        $subject = isset($_POST["subject"]) ? $_POST["subject"] : "";
+
+
+
+    }
+
+
+    ?>
+
     <form id="form_grade" method="POST" action="index.php">
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="name">Name*</label>
-                <input type="text" name="name" class="form-control" checked="checked" maxLength="20" required/>
+                <input type="text" name="name" class="form-control" checked="checked" maxLength="20" required value="<?= htmlspecialchars($name) ?>"/>
             </div>
             <div class="col-sm-6 form-group">
                 <label for="email">E-Mail</label>
-                <input type="text" name="email" class="form-control" checked="checked"/>
+                <input type="text" name="email" class="form-control" checked="checked" value="<?= htmlspecialchars($email) ?>"/>
             </div>
         </div>
 
@@ -34,20 +58,21 @@
             <div class="col-sm-4 form-group">
                 <label for="subject">Fach*</label>
                 <select name="subject" class="custom-select" required>
-                    <option>Mathematik</option>
-                    <option>Deutsch</option>
-                    <option>Englisch</option>
+                    <option value="" hidden>- Fach auswählen -</option>
+                    <option value="m" <?php if ($subject == "m") echo "selected='selected'"; ?>>Mathematik</option>
+                    <option value="d" <?php if ($subject == "d") echo "selected='selected'"; ?>>Deutsch</option>
+                    <option value="e" <?php if ($subject == "e") echo "selected='selected'"; ?>>Englisch</option>
                 </select>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="grade">Note*</label>
-                <input type="number" name="grade" class="form-control" checked="checked" min="1" max="5" required/>
+                <input type="number" name="grade" class="form-control" checked="checked" min="1" max="5" required value="<?= htmlspecialchars($grade) ?>"/>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
-                <input type="date" name="examDate" class="form-control" checked="checked" required onchange="validateExamDate(this)"/>
+                <input type="date" name="examDate" class="form-control" checked="checked" required onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
             </div>
         </div>
 
