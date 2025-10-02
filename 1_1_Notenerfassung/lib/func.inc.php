@@ -43,7 +43,7 @@ function validateSubject($subject) {
 
     global $errors;
 
-    if($subject != 'm' || $subject != 'e' || $subject != 'd') {
+    if($subject != 'm' && $subject != 'e' && $subject != 'd') {
         $errors['subject'] = "Fach ungültig";
         return false;
     } else {

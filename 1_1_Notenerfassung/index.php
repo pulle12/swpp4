@@ -58,7 +58,7 @@
             </div>
             <div class="col-sm-6 form-group">
                 <label for="email">E-Mail</label>
-                <input type="text" name="email" class="form-control" value="<?= htmlspecialchars($email) ?>"/>
+                <input type="text" name="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($email) ?>"/>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
 
             <div class="col-sm-4 form-group">
                 <label for="subject">Fach*</label>
-                <select name="subject" class="custom-select" required>
+                <select name="subject" class="custom-select <?= isset($errors['subject']) ? 'is-invalid' : '' ?>" required>
                     <option value="" hidden>- Fach auswählen -</option>
                     <option value="m" <?php if ($subject == "m") echo "selected='selected'"; ?>>Mathematik</option>
                     <option value="d" <?php if ($subject == "d") echo "selected='selected'"; ?>>Deutsch</option>
@@ -76,12 +76,12 @@
 
             <div class="col-sm-4 form-group">
                 <label for="grade">Note*</label>
-                <input type="number" name="grade" class="form-control" min="1" max="5" required value="<?= htmlspecialchars($grade) ?>"/>
+                <input type="number" name="grade" class="form-control <?= isset($errors['grade']) ? 'is-invalid' : '' ?>" min="1" max="5" required value="<?= htmlspecialchars($grade) ?>"/>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
-                <input type="date" name="examDate" class="form-control" required onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
+                <input type="date" name="examDate" class="form-control <?= isset($errors['examDate']) ? 'is-invalid' : '' ?>" required onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
             </div>
         </div>
 
