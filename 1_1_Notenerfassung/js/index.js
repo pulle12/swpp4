@@ -1,11 +1,11 @@
 function validateExamDate(elem) {
     let today = new Date();
-    today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
 
     let examDate = new Date(elem.value);
-    examDate.setHours(0,0,0,0);
+    examDate.setHours(0, 0, 0, 0);
 
-    if(examDate <= today) {
+    if (examDate <= today) {
         elem.classList.add("is-valid");
         elem.classList.remove("is-invalid");
     } else {

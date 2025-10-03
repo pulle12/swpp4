@@ -27,19 +27,19 @@
     $grade = "";
     $subject = "";
 
-    if(isset($_POST["submit"])){
+    if (isset($_POST["submit"])) {
         $name = isset($_POST["name"]) ? $_POST["name"] : "";
         $email = isset($_POST["email"]) ? $_POST["email"] : "";
         $examDate = isset($_POST["examDate"]) ? $_POST["examDate"] : "";
         $grade = isset($_POST["grade"]) ? $_POST["grade"] : "";
         $subject = isset($_POST["subject"]) ? $_POST["subject"] : "";
 
-        if(validate($name, $email, $examDate, $grade, $subject)){
+        if (validate($name, $email, $examDate, $grade, $subject)) {
             echo "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
         } else {
             echo "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
 
-            foreach($errors as $key => $value){
+            foreach ($errors as $key => $value) {
                 echo "<li>" . $value . "</li>";
             }
             echo "</ul></div>";
@@ -54,11 +54,13 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="name">Name*</label>
-                <input type="text" name="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>" maxLength="20" required value="<?= htmlspecialchars($name) ?>"/>
+                <input type="text" name="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>"
+                       maxLength="20" required value="<?= htmlspecialchars($name) ?>"/>
             </div>
             <div class="col-sm-6 form-group">
                 <label for="email">E-Mail</label>
-                <input type="text" name="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($email) ?>"/>
+                <input type="text" name="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($email) ?>"/>
             </div>
         </div>
 
@@ -66,7 +68,8 @@
 
             <div class="col-sm-4 form-group">
                 <label for="subject">Fach*</label>
-                <select name="subject" class="custom-select <?= isset($errors['subject']) ? 'is-invalid' : '' ?>" required>
+                <select name="subject" class="custom-select <?= isset($errors['subject']) ? 'is-invalid' : '' ?>"
+                        required>
                     <option value="" hidden>- Fach auswählen -</option>
                     <option value="m" <?php if ($subject == "m") echo "selected='selected'"; ?>>Mathematik</option>
                     <option value="d" <?php if ($subject == "d") echo "selected='selected'"; ?>>Deutsch</option>
@@ -76,25 +79,29 @@
 
             <div class="col-sm-4 form-group">
                 <label for="grade">Note*</label>
-                <input type="number" name="grade" class="form-control <?= isset($errors['grade']) ? 'is-invalid' : '' ?>" min="1" max="5" required value="<?= htmlspecialchars($grade) ?>"/>
+                <input type="number" name="grade"
+                       class="form-control <?= isset($errors['grade']) ? 'is-invalid' : '' ?>" min="1" max="5" required
+                       value="<?= htmlspecialchars($grade) ?>"/>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
-                <input type="date" name="examDate" class="form-control <?= isset($errors['examDate']) ? 'is-invalid' : '' ?>" required onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
+                <input type="date" name="examDate"
+                       class="form-control <?= isset($errors['examDate']) ? 'is-invalid' : '' ?>" required
+                       onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
             </div>
         </div>
 
-            <div class="row mt-3">
+        <div class="row mt-3">
 
-                <div class="col-sm-3 mb-3">
-                    <input type="submit" name="submit" class="btn btn-primary btn-block" value="Validieren">
-                </div>
-
-                <div class="col-sm-3">
-                    <a href="index.php" class="btn btn-secondary btn-block" role="button">Löschen</a>
-                </div>
+            <div class="col-sm-3 mb-3">
+                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Validieren">
             </div>
+
+            <div class="col-sm-3">
+                <a href="index.php" class="btn btn-secondary btn-block" role="button">Löschen</a>
+            </div>
+        </div>
     </form>
 </div>
 

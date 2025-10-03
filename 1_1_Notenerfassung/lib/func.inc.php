@@ -1,18 +1,20 @@
 <?php
 
 $errors = [];
-function validate($name, $email, $examDate, $grade, $subject) {
+function validate($name, $email, $examDate, $grade, $subject)
+{
     return validateName($name) & validateEmail($email) & validateExamDate($examDate) & validateGrade($grade) & validateSubject($subject);
 }
 
-function validateName($name) {
+function validateName($name)
+{
 
     global $errors;
 
-    if(strlen($name) == 0) {
+    if (strlen($name) == 0) {
         $errors['name'] = "Name darf nicht leer sein";
         return false;
-    } else if(strlen($name) > 20) {
+    } else if (strlen($name) > 20) {
         $errors['name'] = "Name zu lang";
         return false;
     } else {
@@ -20,7 +22,8 @@ function validateName($name) {
     }
 }
 
-function validateExamDate($examDate) {
+function validateExamDate($examDate)
+{
 
     global $errors;
     try {
@@ -33,17 +36,18 @@ function validateExamDate($examDate) {
         } else {
             return true;
         }
-    } catch(Exception $e) {
+    } catch (Exception $e) {
         $errors['examDate'] = "Prüfungsdatum ungültig";
         return false;
     }
 }
 
-function validateSubject($subject) {
+function validateSubject($subject)
+{
 
     global $errors;
 
-    if($subject != 'm' && $subject != 'e' && $subject != 'd') {
+    if ($subject != 'm' && $subject != 'e' && $subject != 'd') {
         $errors['subject'] = "Fach ungültig";
         return false;
     } else {
@@ -51,11 +55,12 @@ function validateSubject($subject) {
     }
 }
 
-function validateGrade($grade) {
+function validateGrade($grade)
+{
 
     global $errors;
 
-    if(!is_numeric($grade) || $grade < 1 || $grade > 5) {
+    if (!is_numeric($grade) || $grade < 1 || $grade > 5) {
         $errors['grade'] = "Note ungültig";
         return false;
     } else {
@@ -63,11 +68,12 @@ function validateGrade($grade) {
     }
 }
 
-function validateEmail($email) {
+function validateEmail($email)
+{
 
     global $errors;
 
-    if($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if ($email != "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "E-Mail ungültig";
         return false;
     } else {
