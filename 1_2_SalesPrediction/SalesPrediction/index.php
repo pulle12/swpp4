@@ -58,7 +58,7 @@
         }
         curl_close($ch);
         $response_data = json_decode($response, true);
-        echo $response_data["predicted_sales"];
+        echo "<b>Predicted Sales: </b>" . round($response_data["predicted_sales"], 1);
 
     }
 
@@ -69,15 +69,15 @@
             <div class="col-sm-12 form-group">
                 <label for="tv">TV</label>
                 <input type="number" name="tv" class="form-control <?= isset($errors['tv']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($tv) ?>" min=1, required/>
+                       value="<?= htmlspecialchars($tv) ?>" min=1 required/>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-sm-12 form-group">
                 <label for="radio">Radio</label>
                 <input type="number" name="radio" class="form-control <?= isset($errors['radio']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($radio) ?>" min=1, required/>
+                       value="<?= htmlspecialchars($radio) ?>" min=1 required/>
             </div>
         </div>
 
@@ -85,7 +85,7 @@
             <div class="col-sm-12 form-group">
                 <label for="radio">Newspaper</label>
                 <input type="number" name="newspaper" class="form-control <?= isset($errors['newspaper']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($newspaper) ?>" min=1, required/>
+                       value="<?= htmlspecialchars($newspaper) ?>" min=1 required/>
             </div>
         </div>
 
