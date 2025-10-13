@@ -22,30 +22,48 @@
     $radio = "";
     $newspaper = "";
 
+    if (isset($_POST["submit"])) {
+        $tv = isset($_POST["tv"]) ? $_POST["tv"] : "";
+        $radio = isset($_POST["radio"]) ? $_POST["radio"] : "";
+        $newspaper = isset($_POST["newspaper"]) ? $_POST["newspaper"] : "";
+
+        if (validate($tv, $radio, $newspaper)) {
+            echo "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+        } else {
+            echo "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
+
+            foreach ($errors as $key => $value) {
+                echo "<li>" . $value . "</li>";
+            }
+            echo "</ul></div>";
+        }
+
+    }
+
     ?>
 
     <form id="form_salespred" method="POST" action="index.php">
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-sm-12 form-group">
                 <label for="tv">TV</label>
-                <input type="text" name="tv" class="form-control <?= isset($errors['tv']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($tv) ?>"/>
+                <input type="number" name="tv" class="form-control <?= isset($errors['tv']) ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($tv) ?>" min=1, required/>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-12 form-group">
                 <label for="radio">Radio</label>
-                <input type="text" name="radio" class="form-control <?= isset($errors['radio']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($radio) ?>"/>
+                <input type="number" name="radio" class="form-control <?= isset($errors['radio']) ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($radio) ?>" min=1, required/>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-sm-12 form-group">
                 <label for="radio">Newspaper</label>
-                <input type="text" name="newspaper" class="form-control <?= isset($errors['newspaper']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($newspaper) ?>"/>
+                <input type="number" name="newspaper" class="form-control <?= isset($errors['newspaper']) ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($newspaper) ?>" min=1, required/>
             </div>
         </div>
 
