@@ -18,6 +18,8 @@
 
     require "lib/func.inc.php";
 
+    echo kolee
+
     $tv = "";
     $radio = "";
     $newspaper = "";
