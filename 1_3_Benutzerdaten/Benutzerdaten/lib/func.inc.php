@@ -1,46 +1,19 @@
 <?php
 
 $errors = [];
-function validate($tv, $radio, $newspaper)
-{
-    return validateTV($tv) & validateRadio($radio) & validateNewspaper($newspaper);
+function getAllData() {
+    global $errors;
 }
 
-function validateTV($tv)
-{
-
+function getFilteredData($filter) {
     global $errors;
 
-    if ($tv < 0) {
-        $errors['tv'] = 'TV muss mindestens 1 sein.';
-        return false;
-    } else {
-        return true;
-    }
 }
 
-function validateRadio($radio)
-{
-
+function validateUsers($users) {
     global $errors;
+    foreach ($users as $user) {
 
-    if ($radio < 0) {
-        $errors['radio'] = 'Radio muss mindestens 1 sein.';
-        return false;
-    } else {
-        return true;
     }
 }
-
-function validateNewspaper($newspaper)
-{
-
-    global $errors;
-
-    if ($newspaper < 0) {
-        $errors['newspaper'] = 'Newspaper muss mindestens 1 sein.';
-        return false;
-    } else {
-        return true;
-    }
-}
+?>

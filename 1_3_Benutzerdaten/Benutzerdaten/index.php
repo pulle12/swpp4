@@ -24,12 +24,41 @@
             <button type="button" class="btn btn-secondary" id="leeren">Leeren</button>
         </div>
     </div>
+    <table class="table table-striped table-bordered w50">
+        <tbody>
+        <tr>
+            <td>Name</td>
+            <td>E-Mail</td>
+            <td>Geburtsdatum</td>
+        </tr>
+        <tr>
+            <td>Benutzer1</td>
+            <td>Benutzer1</td>
+            <td>Benutzer1</td>
+        </tr>
+        <tr>
+            <td>Benutzer2</td>
+            <td>Benutzer2</td>
+            <td>Benutzer2</td>
+        </tr>
+        </tbody>
+    </table>
 
     <?php
 
     require "lib/func.inc.php";
 
+    $name = "";
+    $email = "";
+    $geburtsdatum = "";
 
+    if (isset($_GET["suche"])) {
+        $filter=trim($_GET["suche"]);
+        $users = getFilteredData($filter);
+        validateUsers($users);
+    } else {
+        getAllData();
+    }
 
     ?>
 
