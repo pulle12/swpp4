@@ -18,8 +18,7 @@
 
     require "lib/func.inc.php";
 
-    echo kolee
-
+    // Initialisierung der Variablen
     $tv = "";
     $radio = "";
     $newspaper = "";
