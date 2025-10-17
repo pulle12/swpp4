@@ -18,7 +18,6 @@
 
     require "lib/func.inc.php";
 
-    // Initialisierung der Variablen
     $tv = "";
     $radio = "";
     $newspaper = "";
