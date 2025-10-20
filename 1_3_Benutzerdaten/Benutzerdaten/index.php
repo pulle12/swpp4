@@ -11,9 +11,24 @@
     <title>Benutzerdaten</title>
 </head>
 <body>
+<?php
 
+require "lib/func.inc.php";
+
+$name = "";
+$email = "";
+$geburtsdatum = "";
+
+if (isset($_GET["suche"]) && $_GET["suche"] !== "") {
+    $users = getFilteredData($_GET["suche"]);
+} else {
+    $users = getAllData();
+}
+
+?>
 <div class="container">
     <h1 class="mt-5 m-3">Benutzerdaten anzeigen</h1>
+    <form method="get">
     <div class="row m-3 align-items-center">
         <label for="suche" class="col-sm-1 col-form-label">Suche:</label>
         <div class="col-sm-3">
@@ -24,44 +39,29 @@
             <button type="button" class="btn btn-secondary" id="leeren">Leeren</button>
         </div>
     </div>
+    </form>
     <table class="table table-striped table-bordered w50">
-        <tbody>
+        <thead>
         <tr>
             <td>Name</td>
             <td>E-Mail</td>
             <td>Geburtsdatum</td>
         </tr>
-        <tr>
-            <td>Benutzer1</td>
-            <td>Benutzer1</td>
-            <td>Benutzer1</td>
-        </tr>
-        <tr>
-            <td>Benutzer2</td>
-            <td>Benutzer2</td>
-            <td>Benutzer2</td>
-        </tr>
+        </thead>
+        <tbody>
+        <?php if (!empty($users)): ?>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?= htmlspecialchars($user['name']) ?></td>
+                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td><?= htmlspecialchars($user['geburtsdatum']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="3" class="text-center">Keine Daten gefunden</td></tr>
+        <?php endif; ?>
         </tbody>
     </table>
-
-    <?php
-
-    require "lib/func.inc.php";
-
-    $name = "";
-    $email = "";
-    $geburtsdatum = "";
-
-    if (isset($_GET["suche"])) {
-        $filter=trim($_GET["suche"]);
-        $users = getFilteredData($filter);
-        validateUsers($users);
-    } else {
-        getAllData();
-    }
-
-    ?>
-
 
 </div>
 
