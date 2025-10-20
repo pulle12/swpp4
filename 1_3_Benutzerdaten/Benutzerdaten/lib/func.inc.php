@@ -2,7 +2,7 @@
 
 $errors = [];
 function getAllData() {
-    include __DIR__ . "/../data/PHP-13 userdata.php";
+    include __DIR__ . "/../data/user.php";
     $result = [];
     foreach ($data as $user) {
         $result[] = [
@@ -16,7 +16,7 @@ function getAllData() {
 }
 
 function getFilteredData($filter) {
-    include __DIR__ . "/../data/PHP-13 userdata.php";
+    include __DIR__ . "/../data/user.php";
     $filter = strtolower($filter);
     $result = [];
 
