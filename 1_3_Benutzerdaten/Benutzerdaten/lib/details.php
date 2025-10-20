@@ -1,19 +1,27 @@
 <?php
-require "/func.inc.php";
+require __DIR__ . "/func.inc.php"; // Funktionen laden
 
-$id = $_GET['id'] ?? 0;
+// ID aus GET-Parameter holen
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    echo "Keine Benutzer-ID angegeben!";
+    exit;
+}
+
+// Alle User laden
 $users = getAllData();
-$userDetail = null;
 
-foreach ($users as $user) {
-    if ($user['id'] == $id) {
-        $userDetail = $user;
+// User anhand der ID finden
+$user = null;
+foreach ($users as $u) {
+    if ($u['id'] == $id) {
+        $user = $u;
         break;
     }
 }
 
-if (!$userDetail) {
-    echo "<div class='container mt-5'><h1>Benutzer nicht gefunden!</h1></div>";
+if (!$user) {
+    echo "Benutzer nicht gefunden!";
     exit;
 }
 ?>
@@ -22,46 +30,43 @@ if (!$userDetail) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <title>Benutzerdetails</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <title>Benutzer Details</title>
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-5 mb-3">Benutzerdetails</h1>
-
+    <h1 class="mt-5 mb-3">Benutzer Details</h1>
     <table class="table table-bordered w50">
         <tr>
             <th>ID</th>
-            <td><?= htmlspecialchars($userDetail['id']) ?></td>
+            <td><?= htmlspecialchars($user['id']) ?></td>
         </tr>
         <tr>
             <th>Vorname</th>
-            <td><?= htmlspecialchars($userDetail['firstname']) ?></td>
+            <td><?= htmlspecialchars($user['firstname']) ?></td>
         </tr>
         <tr>
             <th>Nachname</th>
-            <td><?= htmlspecialchars($userDetail['lastname']) ?></td>
+            <td><?= htmlspecialchars($user['lastname']) ?></td>
         </tr>
         <tr>
             <th>E-Mail</th>
-            <td><?= htmlspecialchars($userDetail['email']) ?></td>
+            <td><?= htmlspecialchars($user['email']) ?></td>
         </tr>
         <tr>
             <th>Telefon</th>
-            <td><?= htmlspecialchars($userDetail['phone']) ?></td>
+            <td><?= htmlspecialchars($user['phone']) ?></td>
         </tr>
         <tr>
             <th>Geburtsdatum</th>
-            <td><?= htmlspecialchars($userDetail['birthdate']) ?></td>
+            <td><?= htmlspecialchars($user['birthdate']) ?></td>
         </tr>
         <tr>
             <th>Straße</th>
-            <td><?= htmlspecialchars($userDetail['street']) ?></td>
+            <td><?= htmlspecialchars($user['street']) ?></td>
         </tr>
     </table>
-
-    <a href="index.php" class="btn btn-secondary mt-3">Zurück zur Übersicht</a>
+    <a href="../index.php" class="btn btn-secondary">Zurück zur Übersicht</a>
 </div>
 </body>
 </html>
-
