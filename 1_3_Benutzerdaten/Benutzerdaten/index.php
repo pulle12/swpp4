@@ -1,3 +1,15 @@
+<?php
+include "lib/func.inc.php";
+
+$users = [];
+$search = $_GET['suche'] ?? '';
+
+if ($search !== '') {
+    $users = getFilteredData($search);
+} else {
+    $users = getAllData();
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,59 +23,46 @@
     <title>Benutzerdaten</title>
 </head>
 <body>
-<?php
-
-require "lib/func.inc.php";
-
-$name = "";
-$email = "";
-$geburtsdatum = "";
-
-if (isset($_GET["suche"]) && $_GET["suche"] !== "") {
-    $users = getFilteredData($_GET["suche"]);
-} else {
-    $users = getAllData();
-}
-
-?>
 <div class="container">
     <h1 class="mt-5 m-3">Benutzerdaten anzeigen</h1>
-    <form method="get">
-    <div class="row m-3 align-items-center">
+
+    <form method="get" class="row m-3 align-items-center">
         <label for="suche" class="col-sm-1 col-form-label">Suche:</label>
         <div class="col-sm-3">
-            <input type="text" id="suche" name="suche" class="form-control" required />
+            <input type="text" id="suche" name="suche"
+                   value="<?= htmlspecialchars($search) ?>"
+                   class="form-control" />
         </div>
         <div class="col-sm-auto">
-            <button type="button" class="btn btn-primary me-2" id="anzeigen">Suchen</button>
-            <button type="button" class="btn btn-secondary" id="leeren">Leeren</button>
+            <button type="submit" class="btn btn-primary me-2">Suchen</button>
+            <a href="?" class="btn btn-secondary">Leeren</a>
         </div>
-    </div>
     </form>
+
     <table class="table table-striped table-bordered w50">
         <thead>
         <tr>
-            <td>Name</td>
-            <td>E-Mail</td>
-            <td>Geburtsdatum</td>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Geburtsdatum</th>
         </tr>
         </thead>
         <tbody>
         <?php if (!empty($users)): ?>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['name']) ?></td>
+                    <td><?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?></td>
                     <td><?= htmlspecialchars($user['email']) ?></td>
-                    <td><?= htmlspecialchars($user['geburtsdatum']) ?></td>
+                    <td><?= htmlspecialchars($user['birthdate']) ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
-            <tr><td colspan="3" class="text-center">Keine Daten gefunden</td></tr>
+            <tr>
+                <td colspan="3" class="text-center">Keine Daten gefunden</td>
+            </tr>
         <?php endif; ?>
         </tbody>
     </table>
-
 </div>
-
 </body>
 </html>

@@ -1,3 +1,4 @@
+<?php
 $data = [[
     "id" => 1,
     "firstname" => "Hamnet",
@@ -799,3 +800,4 @@ $data = [[
     "birthdate" => "1991-07-06",
     "street" => "Rusk"
 ]];
+?>
