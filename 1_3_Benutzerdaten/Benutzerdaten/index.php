@@ -51,7 +51,7 @@ if ($search !== '') {
         <?php if (!empty($users)): ?>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?></td>
+                    <td><a <?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?></td>
                     <td><?= htmlspecialchars($user['email']) ?></td>
                     <td><?= htmlspecialchars($user['birthdate']) ?></td>
                 </tr>
