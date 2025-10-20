@@ -51,8 +51,9 @@ if ($search !== '') {
         <?php if (!empty($users)): ?>
             <?php foreach ($users as $user): ?>
                 <tr>
+                    <td><?= htmlspecialchars($user['id']) ?></td>
                     <td>
-                        <a href="details.php?id=<?= $user['id'] ?>">
+                        <a href="lib/details.php?id=<?= $user['id'] ?>">
                             <?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?>
                         </a>
                     </td>

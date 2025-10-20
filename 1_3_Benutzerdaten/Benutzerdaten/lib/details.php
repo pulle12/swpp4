@@ -1,5 +1,5 @@
 <?php
-require "lib/func.inc.php";
+require "/func.inc.php";
 
 $id = $_GET['id'] ?? 0;
 $users = getAllData();
