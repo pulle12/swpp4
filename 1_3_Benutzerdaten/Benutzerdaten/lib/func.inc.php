@@ -3,16 +3,7 @@
 $errors = [];
 function getAllData() {
     include __DIR__ . "/../data/user.php";
-    $result = [];
-    foreach ($data as $user) {
-        $result[] = [
-            'firstname' => $user['firstname'],
-            'lastname' => $user['lastname'],
-            'email' => $user['email'],
-            'birthdate' => $user['birthdate'],
-        ];
-    }
-    return $result;
+    return $data;
 }
 
 function getFilteredData($filter) {
