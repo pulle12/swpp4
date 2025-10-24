@@ -9,7 +9,6 @@ if ($search !== '') {
 } else {
     $users = getAllData();
 }
-//
 ?>
 <!doctype html>
 <html lang="en">
