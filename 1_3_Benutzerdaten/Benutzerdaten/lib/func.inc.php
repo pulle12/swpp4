@@ -18,6 +18,7 @@ function getFilteredData($filter) {
             str_contains(strtolower($user["email"]), $filter)
         ) {
             $result[] = [
+
                 'firstname' => $user['firstname'],
                 'lastname'  => $user['lastname'],
                 'email'     => $user['email'],

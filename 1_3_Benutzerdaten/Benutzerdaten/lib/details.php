@@ -1,17 +1,16 @@
 <?php
-require __DIR__ . "/func.inc.php"; // Funktionen laden
+require __DIR__ . "/func.inc.php";
 
-// ID aus GET-Parameter holen
+
 $id = $_GET['id'] ?? null;
 if (!$id) {
     echo "Keine Benutzer-ID angegeben!";
     exit;
 }
 
-// Alle User laden
 $users = getAllData();
 
-// User anhand der ID finden
+
 $user = null;
 foreach ($users as $u) {
     if ($u['id'] == $id) {
