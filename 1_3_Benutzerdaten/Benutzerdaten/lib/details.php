@@ -7,6 +7,7 @@ if (!$id) {
     echo "Keine Benutzer-ID angegeben!";
     exit;
 }
+$search = $_GET['suche'] ?? '';
 
 $users = getAllData();
 
@@ -65,7 +66,7 @@ if (!$user) {
             <td><?= htmlspecialchars($user['street']) ?></td>
         </tr>
     </table>
-    <a href="../index.php" class="btn btn-secondary">Zurück zur Übersicht</a>
+    <a href="../index.php?suche=<?= urlencode($search) ?> " class="btn btn-secondary">Zurück zur Übersicht</a>
 </div>
 </body>
 </html>

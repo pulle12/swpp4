@@ -32,6 +32,9 @@ Das Projekt besteht aus einer Übersichtsseite mit allen Benutzern und einer Det
 
 ---
 
+### Zusatzaufgabe 1 ist auch integriert
+- Suchparameter bleibt bestehen wenn man von der Detailseite auf die Hauptseite zurück geht.
+
 ## Funktionen im Hintergrund
 - **getAllData()** liefert alle Benutzer
 - **getDataPerId($id)** liefert die Daten eines bestimmten Benutzers

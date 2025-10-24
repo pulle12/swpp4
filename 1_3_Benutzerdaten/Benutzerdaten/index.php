@@ -53,7 +53,7 @@ if ($search !== '') {
                 <tr>
                     <td><?= htmlspecialchars($user['id']) ?></td>
                     <td>
-                        <a href="lib/details.php?id=<?= $user['id'] ?>">
+                        <a href="lib/details.php?id=<?= $user['id'] ?>&suche=<?= urlencode($search) ?>">
                             <?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?>
                         </a>
                     </td>
