@@ -12,34 +12,48 @@ class GradeEntry
 
     private $errors = [];
 
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 
-    public static function getAll() {
+    public static function getAll()
+    {
+        $grades = [];
 
+        if (isset($_SESSION['grades'])) {
+            foreach ($_SESSION['grades'] as $grade) {
+                $grades[] = unserialize($grade);
+            }
+        }
+
+        return $grades;
     }
 
-    public static function deleteAll() {
-
+    public static function deleteAll()
+    {
+        if (isset($_SESSION['grades'])) {
+            unset($_SESSION['grades']);
+        }
     }
 
-    public function save() {
-        if($this->validate()) {
-            //speichern
-
+    public function save()
+    {
+        if ($this->validate()) {
+            $s = serialize($this);
+            $_SESSION['grades'][] = $s;
             return true;
         }
 
         return false;
     }
 
-    function validate()
+    public function validate()
     {
         return $this->validateName($this->name) & $this->validateEmail($this->email) & $this->validateExamDate($this->examDate) & $this->validateGrade($this->grade) & $this->validateSubject($this->subject);
     }
 
-    function validateName()
+    private function validateName()
     {
         if (strlen($this->name) == 0) {
             $this->errors['name'] = "Name darf nicht leer sein";
@@ -52,7 +66,7 @@ class GradeEntry
         }
     }
 
-    function validateExamDate()
+    private function validateExamDate()
     {
         try {
             if (strlen($this->examDate) == "") {
@@ -70,7 +84,7 @@ class GradeEntry
         }
     }
 
-    function validateSubject()
+    private function validateSubject()
     {
         if ($this->subject != 'm' && $this->subject != 'e' && $this->subject != 'd') {
             $this->errors['subject'] = "Fach ungültig";
@@ -80,7 +94,7 @@ class GradeEntry
         }
     }
 
-    function validateGrade()
+    private function validateGrade()
     {
         if (!is_numeric($this->grade) || $this->grade < 1 || $this->grade > 5) {
             $this->errors['grade'] = "Note ungültig";
@@ -90,7 +104,7 @@ class GradeEntry
         }
     }
 
-    function validateEmail()
+    private function validateEmail()
     {
         if ($this->email != "" && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $this->errors['email'] = "E-Mail ungültig";
@@ -98,6 +112,30 @@ class GradeEntry
         } else {
             return true;
         }
+    }
+
+    public function getExamDateFormatted()
+    {
+        return date_format(date_create($this->examDate), 'd.m.Y');
+    }
+
+    public function getSubjectFormatted()
+    {
+        switch ($this->subject) {
+            case 'm':
+                return 'Mathematik';
+            case 'e':
+                return 'Englisch';
+            case 'd':
+                return 'Deutsch';
+            default :
+                return null;
+        }
+    }
+
+    public function hasErrors($field)
+    {
+        return isset($this->errors[$field]);
     }
 
     public function getName(): string
@@ -153,12 +191,6 @@ class GradeEntry
     public function getErrors(): array
     {
         return $this->errors;
-    }
-
-    public function setErrors(array $errorss): void
-    {
-        global $errors;
-        $this-> $errors = $errorss;
     }
 
 
