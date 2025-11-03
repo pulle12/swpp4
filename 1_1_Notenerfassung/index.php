@@ -14,7 +14,7 @@ if (isset($_POST["submit"])) {
     $e->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
     $e->setExamDate( isset($_POST["examDate"]) ? $_POST["examDate"] : "");
     $e->setGrade( isset($_POST["grade"]) ? $_POST["grade"] : "");
-    $e->setGrade( isset($_POST["grade"]) ? $_POST["grade"] : "");
+    $e->setSubject( isset($_POST["subject"]) ? $_POST["subject"] : "");
 
     if ($e->validate()) {
         $e->save();
@@ -39,7 +39,7 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-    <title>Notenerfassung</title>
+    <title>Notenerfassung 2.0</title>
 
     <script type="text/javascript" src="js/index.js"></script>
 </head>
@@ -47,17 +47,19 @@ if (isset($_POST["submit"])) {
 <div class="container">
     <h1 class="mt-5 mb-3">Notenerfassung</h1>
 
+    <?= $message ?>
+
     <form id="form_grade" method="POST" action="index.php">
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label for="name">Name*</label>
-                <input type="text" name="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>"
-                       maxLength="20" required value="<?= htmlspecialchars($name) ?>"/>
+                <input type="text" name="name" class="form-control <?= $e->hasError('name') ? 'is-invalid' : '' ?>"
+                       maxLength="20" required value="<?= htmlspecialchars($e->getName()) ?>"/>
             </div>
             <div class="col-sm-6 form-group">
                 <label for="email">E-Mail</label>
-                <input type="text" name="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($email) ?>"/>
+                <input type="text" name="email" class="form-control <?= $e->hasError('email') ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($e->getEmail()) ?>"/>
             </div>
         </div>
 
@@ -65,27 +67,27 @@ if (isset($_POST["submit"])) {
 
             <div class="col-sm-4 form-group">
                 <label for="subject">Fach*</label>
-                <select name="subject" class="custom-select <?= isset($errors['subject']) ? 'is-invalid' : '' ?>"
+                <select name="subject" class="custom-select <?= $e->hasError('subject') ? 'is-invalid' : '' ?>"
                         required>
                     <option value="" hidden>- Fach auswählen -</option>
-                    <option value="m" <?php if ($subject == "m") echo "selected='selected'"; ?>>Mathematik</option>
-                    <option value="d" <?php if ($subject == "d") echo "selected='selected'"; ?>>Deutsch</option>
-                    <option value="e" <?php if ($subject == "e") echo "selected='selected'"; ?>>Englisch</option>
+                    <option value="m" <?php if ($e->getSubject() == "m") echo "selected='selected'"; ?>>Mathematik</option>
+                    <option value="d" <?php if ($e->getSubject() == "d") echo "selected='selected'"; ?>>Deutsch</option>
+                    <option value="e" <?php if ($e->getSubject() == "e") echo "selected='selected'"; ?>>Englisch</option>
                 </select>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="grade">Note*</label>
                 <input type="number" name="grade"
-                       class="form-control <?= isset($errors['grade']) ? 'is-invalid' : '' ?>" min="1" max="5" required
-                       value="<?= htmlspecialchars($grade) ?>"/>
+                       class="form-control <?= $e->hasError('grade') ? 'is-invalid' : '' ?>" min="1" max="5" required
+                       value="<?= htmlspecialchars($e->getGrade()) ?>"/>
             </div>
 
             <div class="col-sm-4 form-group">
                 <label for="examDate">Prüfungsdatum</label>
                 <input type="date" name="examDate"
-                       class="form-control <?= isset($errors['examDate']) ? 'is-invalid' : '' ?>" required
-                       onchange="validateExamDate(this) value="<?= htmlspecialchars($examDate) ?>""/>
+                       class="form-control <?= $e->hasError('examDate') ? 'is-invalid' : '' ?>" required
+                       onchange="validateExamDate(this)" value="<?= htmlspecialchars($e->getExamDate()) ?>"/>
             </div>
         </div>
 
@@ -96,7 +98,7 @@ if (isset($_POST["submit"])) {
             </div>
 
             <div class="col-sm-3">
-                <a href="index.php" class="btn btn-secondary btn-block" role="button">Löschen</a>
+                <a href="index.php" class="btn btn-secondary btn-block">Löschen</a>
             </div>
         </div>
     </form>

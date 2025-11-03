@@ -2,6 +2,8 @@
 
 namespace models;
 
+use DateTime;
+
 class GradeEntry
 {
     private $name = '';
@@ -92,6 +94,7 @@ class GradeEntry
         } else {
             return true;
         }
+
     }
 
     private function validateGrade()
@@ -133,7 +136,7 @@ class GradeEntry
         }
     }
 
-    public function hasErrors($field)
+    public function hasError($field)
     {
         return isset($this->errors[$field]);
     }
