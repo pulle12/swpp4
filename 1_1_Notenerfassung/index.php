@@ -102,6 +102,22 @@ if (isset($_POST["submit"])) {
             </div>
         </div>
     </form>
+
+    <h2 class="mt-3">Noten</h2>
+
+    <div id="grades">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Prüfungsdatum</th>
+                    <th>Fach</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 
 </body>
