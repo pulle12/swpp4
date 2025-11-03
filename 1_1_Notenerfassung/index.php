@@ -1,3 +1,33 @@
+<?php
+
+use models\GradeEntry;
+
+session_start();
+
+require_once './models/GradeEntry.php';
+
+$e = new GradeEntry();
+$message = '';
+
+if (isset($_POST["submit"])) {
+    $e->setName( isset($_POST["name"]) ? $_POST["name"] : "");
+    $e->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
+    $e->setExamDate( isset($_POST["examDate"]) ? $_POST["examDate"] : "");
+    $e->setGrade( isset($_POST["grade"]) ? $_POST["grade"] : "");
+    $e->setGrade( isset($_POST["grade"]) ? $_POST["grade"] : "");
+
+    if ($e->validate()) {
+        $e->save();
+        $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+    } else {
+        $message = "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
+        foreach ($e->getErrors() as $key => $value) {
+            $message .= "<li>" . $value . "</li>";
+        }
+        $message .= "</ul></div>";
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,39 +46,6 @@
 <body>
 <div class="container">
     <h1 class="mt-5 mb-3">Notenerfassung</h1>
-
-    <?php
-
-    require "lib/func.inc.php";
-
-    $name = "";
-    $email = "";
-    $examDate = "";
-    $grade = "";
-    $subject = "";
-
-    if (isset($_POST["submit"])) {
-        $name = isset($_POST["name"]) ? $_POST["name"] : "";
-        $email = isset($_POST["email"]) ? $_POST["email"] : "";
-        $examDate = isset($_POST["examDate"]) ? $_POST["examDate"] : "";
-        $grade = isset($_POST["grade"]) ? $_POST["grade"] : "";
-        $subject = isset($_POST["subject"]) ? $_POST["subject"] : "";
-
-        if (validate($name, $email, $examDate, $grade, $subject)) {
-            echo "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
-        } else {
-            echo "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
-
-            foreach ($errors as $key => $value) {
-                echo "<li>" . $value . "</li>";
-            }
-            echo "</ul></div>";
-        }
-
-    }
-
-
-    ?>
 
     <form id="form_grade" method="POST" action="index.php">
         <div class="row">
