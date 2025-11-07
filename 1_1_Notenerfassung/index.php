@@ -94,7 +94,7 @@ if (isset($_POST["submit"])) {
         <div class="row mt-3">
 
             <div class="col-sm-3 mb-3">
-                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Validieren">
+                <input type="submit" name="submit" class="btn btn-primary btn-block" value="Speichern">
             </div>
 
             <div class="col-sm-3">
@@ -116,8 +116,34 @@ if (isset($_POST["submit"])) {
                     <th>Note</th>
                 </tr>
             </thead>
+            <tbody>
+            <?php
+
+            $grades = GradeEntry::getAll();
+
+            foreach($grades as $g) {
+                echo "<tr>";
+                echo "<td>" . $g->getName() . "</td>";
+                echo "<td>" . $g->getEmail() . "</td>";
+                echo "<td>" . $g->getExamDateFormatted() . "</td>";
+                echo "<td>" . $g->getSubjectFormatted() . "</td>";
+                echo "<td>" . $g->getGrade() . "</td>";
+                echo "</tr>";
+            }
+
+            ?>
+            </tbody>
         </table>
     </div>
+    <?php
+    if (count($grades) > 0) {
+    ?>
+    <form action="clear.php" method="post">
+        <input type="submit" name="clear" class="btn btn-danger" value="Alle Noten löschen"/>
+    </form>
+    <?php
+    }
+    ?>
 </div>
 
 </body>
