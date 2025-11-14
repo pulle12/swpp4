@@ -1,14 +1,10 @@
 <?php
-include "lib/func.inc.php";
-
-$users = [];
-$search = $_GET['suche'] ?? '';
-
-if ($search !== '') {
-    $users = getFilteredData($search);
-} else {
-    $users = getAllData();
-}
+//Anmeldeformular zur Benutzerauthentifikation
+//Validierung der Zugangsdaten (mit Hilfe der Benutzer-Klasse) und Anzeige der Fehlermeldung
+//Weiterleitung auf den internen Bereich nach erfolgreichem Login
+//Direktes Öffnen des internen Bereichs nur möglich nach erfolgreicher Authentifikation, ansonsten erfolgt eine Weiterleitung auf die Startseite
+//Mehrmaliges Öffnen des internen Bereichs muss mit einmaliger Authentifikation möglich sein
+//Integration einer Cookie Abfrage auf der Startseite
 ?>
 <!doctype html>
 <html lang="en">
