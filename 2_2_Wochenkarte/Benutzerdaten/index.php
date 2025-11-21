@@ -1,4 +1,8 @@
 <?php
+
+$email = "";
+
+$password = "";
 //Anmeldeformular zur Benutzerauthentifikation
 //Validierung der Zugangsdaten (mit Hilfe der Benutzer-Klasse) und Anzeige der Fehlermeldung
 //Weiterleitung auf den internen Bereich nach erfolgreichem Login
@@ -20,20 +24,26 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-5 m-3">Benutzerdaten anzeigen</h1>
+    <h1 class="mt-5 mb-4 text-center">Wochenkarte</h1>
 
-    <form method="get" class="row m-3 align-items-center">
-        <label for="suche" class="col-sm-1 col-form-label">Suche:</label>
-        <div class="col-sm-3">
-            <input type="text" id="suche" name="suche"
-                   value="<?= htmlspecialchars($search) ?>"
-                   class="form-control" />
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <form method="get" novalidate>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Bitte anmelden</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="<?= htmlspecialchars($email) ?>" placeholder="E-Mail eingeben" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="password" name="password"
+                               value="<?= htmlspecialchars($password) ?>" placeholder="Passwort" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Anmelden</button>
+                </form>
+            </div>
         </div>
-        <div class="col-sm-auto">
-            <button type="submit" class="btn btn-primary me-2">Suchen</button>
-            <a href="?" class="btn btn-secondary">Leeren</a>
-        </div>
-    </form>
+    </div>
 
     <table class="table table-striped table-bordered w50">
         <thead>
