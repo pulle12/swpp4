@@ -1,0 +1,24 @@
+erDiagram
+    COOKIEHELPER ||--o{ USER : "prüft Zugriff"
+    USER ||--|| SESSION : "erstellt"
+    USER ||--o{ WOCHENKARTE : "darf sehen"
+    USER ||--o{ LOGOUT : "führt aus"
+
+    USER {
+        string email
+        string password
+        array errors
+    }
+
+    COOKIEHELPER {
+        boolean allowed
+    }
+
+    WOCHENKARTE {
+        string day
+        string menuImage
+    }
+
+    SESSION {
+        string sessionId
+    }

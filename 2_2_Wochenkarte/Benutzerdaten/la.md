@@ -1,60 +1,95 @@
-# Lösungsansatz – Benutzerdaten suchen
+# Lösungsansatz – Wochenkarte (PHP-Prototyp)
 
-## Ziel
-Ein Prototyp zum Anzeigen und Filtern von Benutzerdaten soll erstellt werden.  
-Die Daten werden zuerst aus einem Array geladen und später aus einer Datenbank.
+## 1. Architektur
 
----
+Die Anwendung ist in Darstellung und Logik getrennt.
 
-## Aufbau
-Das Projekt besteht aus einer Übersichtsseite mit allen Benutzern und einer Detailseite für einzelne Benutzer.
+### Komponentenstruktur
 
----
+- index.php  
+  Startseite mit Cookie-Abfrage und Login-Formular
 
-## Funktionen
+- wochenkarte.php  
+  Geschützter interner Bereich mit Anzeige der Menüs
 
-### Benutzerübersicht
-- Darstellung aller Benutzer in einer Tabelle
-- Vor- und Nachname werden in einer gemeinsamen Spalte angezeigt (bedeutet vorname nachname verbinden)
-- Jeder Benutzer hat einen Link zur Detailseite mit seiner ID
-- Das Datum wird im Format **DD.MM.YYYY** angezeigt
-- Die Tabellenzeilen sind abwechselnd farbig gestaltet
-- Ein Eingabefeld ermöglicht die Suche nach Namen oder E-Mail
-- Buttons zum **Suchen** und **Leeren** stehen zur Verfügung
-- Wird kein Treffer gefunden, erscheint eine Fehlermeldung
-- Die Seite ist **responsive** und nutzt ein Framework wie **Bootstrap**
+- logout.php  
+  Abmeldung und Session-Zerstörung
 
----
+- classes/User.php  
+  Beinhaltet die gesamte Authentifizierungslogik
 
-### Detailseite
-- Zeigt alle Daten eines Benutzers übersichtlich an
-- Über einen **Zurück-Link** gelangt man wieder zur Übersichtsseite
+- classes/CookieHelper.php  
+  Verwaltung der Cookie-Zustimmung
 
----
 
-### Zusatzaufgabe 1 ist auch integriert
-- Suchparameter bleibt bestehen wenn man von der Detailseite auf die Hauptseite zurück geht.
+## 2. Ablauf
 
-## Funktionen im Hintergrund
-- **getAllData()** liefert alle Benutzer
-- **getDataPerId($id)** liefert die Daten eines bestimmten Benutzers
-- **getFilteredData($filter)** liefert alle Benutzer, deren Name oder E-Mail den Suchbegriff enthält
+### Startseite (index.php)
+1. CookieHelper::isAllowed() prüfen
+2. Falls false → Cookie-Formular anzeigen
+3. Falls true → Login-Formular anzeigen
+4. Nach POST:
+    - User::get(email, password)
+    - Wenn Objekt zurückgegeben:
+        - $user->login()
+        - Weiterleitung zu wochenkarte.php
+    - Sonst Fehler anzeigen
 
----
 
-## Design
-- Verwendung von **Bootstrap** für ein modernes und responsives Layout
-- Tabellen mit abwechselnden Farben für bessere Lesbarkeit
-- Klare und einfache Struktur, damit der Code leicht verständlich bleibt
+### Interner Bereich (wochenkarte.php)
+1. Cookie-Prüfung
+2. User::isLoggedIn() prüfen
+3. Bei Erfolg:
+    - Anzeige der Wochenmenüs (Bootstrap Grid)
+4. Logout-Button anzeigen
 
----
 
-## Zielgruppe
-Backend-Administratoren, die das CMS verwenden.  
-Der Code soll übersichtlich, modern und nach gängigen Webstandards geschrieben sein.
+### Logout (logout.php)
+1. Cookie-Prüfung
+2. User::logout()
+3. Redirect zu index.php
 
----
 
-## Ergebnis
-Ein funktionierender Prototyp, der Benutzerdaten anzeigen und nach Namen oder E-Mail filtern kann.  
-Der Prototyp kann später leicht in das CMS integriert werden.
+## 3. Klasse CookieHelper
+
+Aufgaben:
+- Prüfen ob Cookie gesetzt ist
+- Setzen des Cookies bei Zustimmung
+
+### Methoden:
+- isAllowed() : bool
+- setCookie() : void
+
+
+## 4. Klasse User
+
+### Attribute:
+- email : string
+- password : string
+- errors : array
+
+### Konstanten:
+- VALID_EMAIL
+- VALID_PASSWORD
+
+### Methoden:
+- __construct(email, password)
+- validate() : bool
+- login() : bool
+- static get(email, password) : User|null
+- static logout() : void
+- static isLoggedIn() : bool
+
+
+## 5. Validierung
+
+- E-Mail: 5 – 30 Zeichen
+- Passwort: 5 – 20 Zeichen
+- Bei Fehlern Speicherung im errors-Array
+
+
+## 6. Sicherheit & Erweiterbarkeit
+
+- Session-basierte Authentifizierung
+- Vorbereitete Struktur für spätere Datenbankintegration
+- Saubere Trennung von Logik und UI
