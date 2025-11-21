@@ -15,11 +15,9 @@ class Benutzer
      * @param $email
      * @param $password
      */
-    public function __construct($id, $email, $password)
+    public function __construct()
     {
-        $this->id = $id;
-        validateEmail($email);
-        validatePassword($password);
+
     }
 
     /**
@@ -90,8 +88,8 @@ class Benutzer
     }
 
     public function validatePassword() {
-        if ($this->password < 5 || $this->password > 20) {
-            $this->errors['password'] = "E-Mail muss zwischen 5 und 20 Zeichen lang sein";
+        if (strlen($this->password) < 5 || strlen($this->password) > 20) {
+            $this->errors['password'] = "Passwort muss zwischen 5 und 20 Zeichen lang sein";
             return false;
         } else {
             return true;
@@ -110,17 +108,17 @@ class Benutzer
 
     //Datenbank-Anbindung
 
-	public static function get($email, $password) {
+	public static function get($email, $password) {
         return null;
         //Rückgabe: User-Objekt oder null
     }
 
-	public function login() {
+	public function login() {
         return null;
         //Rückgabe: boolean
     }
 
-	public static function logout() {
+	public static function logout() {
         return null;
     }
 
@@ -138,6 +136,16 @@ class Benutzer
     public function setLoggedIn($loggedIn): void
     {
         $this->loggedIn = $loggedIn;
+    }
+
+    public function save()
+    {
+        if ($this->validate()) {
+            $s = serialize($this);
+            $_SESSION['users'][] = $s;
+            return true;
+        }
+        return false;
     }
 
 
