@@ -1,24 +1,18 @@
-erDiagram
-    COOKIEHELPER ||--o{ USER : "prüft Zugriff"
-    USER ||--|| SESSION : "erstellt"
-    USER ||--o{ WOCHENKARTE : "darf sehen"
-    USER ||--o{ LOGOUT : "führt aus"
-
-    USER {
-        string email
-        string password
-        array errors
+classDiagram
+    class CookieHelper {
+        +isAllowed() bool
+        +setCookie() void
     }
 
-    COOKIEHELPER {
-        boolean allowed
+    class User {
+        -email string
+        -password string
+        -errors array
+        +validate() bool
+        +login() bool
+        +get(email,password) User
+        +logout() void
+        +isLoggedIn() bool
     }
 
-    WOCHENKARTE {
-        string day
-        string menuImage
-    }
-
-    SESSION {
-        string sessionId
-    }
+    CookieHelper --> User
