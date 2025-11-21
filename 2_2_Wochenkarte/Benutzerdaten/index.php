@@ -9,30 +9,34 @@ require_once 'CookieHelper.php';
 $u = new Benutzer();
 $message = '';
 
-if (isset($_POST["submit"])) {
-    $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
-    $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
+if(isset($COOKIE['cookieConsent'])) {
+    if (isset($_POST["submit"])) {
+        $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
+        $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
 
-    if ($u->validate()) {
-        $u->save();
-        $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
-        header("Location: wochenkarte.php");
-        exit();
-    } else {
-        $message = "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
-        foreach ($u->getErrors() as $key => $value) {
-            $message .= "<li>" . $value . "</li>";
+        if ($u->validate()) {
+            $u->save();
+            $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+            header("Location: wochenkarte.php");
+            exit();
+        } else {
+            $message = "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
+            foreach ($u->getErrors() as $key => $value) {
+                $message .= "<li>" . $value . "</li>";
+            }
+            $message .= "</ul></div>";
         }
-        $message .= "</ul></div>";
     }
+} else {
+    // Cookie-Banner anzeigen
+    echo '<div id="cookie-banner">Bitte akzeptieren Sie die Cookies. <button onclick="acceptCookies()">Akzeptieren</button></div>';
+    exit;
 }
 
-//Anmeldeformular zur Benutzerauthentifikation
-//Validierung der Zugangsdaten (mit Hilfe der Benutzer-Klasse) und Anzeige der Fehlermeldung
-//Weiterleitung auf den internen Bereich nach erfolgreichem Login
-//Direktes Öffnen des internen Bereichs nur möglich nach erfolgreicher Authentifikation, ansonsten erfolgt eine Weiterleitung auf die Startseite
+//Cookie-Zustimmung sollte funktionieren (einrichten) und dann bootstrap verwenden dafür
 //Mehrmaliges Öffnen des internen Bereichs muss mit einmaliger Authentifikation möglich sein
 //Integration einer Cookie Abfrage auf der Startseite
+//Datenbankanbindung für die User-Validierungs-Abfragen einrichten
 ?>
 <!doctype html>
 <html lang="en">
