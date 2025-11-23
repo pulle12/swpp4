@@ -146,11 +146,12 @@ class Benutzer
         $this->loggedIn = $loggedIn;
     }
 
-    public function save()
+    public function save($conn)
     {
-        if ($this->validate()) {
-            $s = serialize($this);
-            $_SESSION['users'][] = $s;
+        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $this->email, $this->password);
+        if ($stmt->execute()) {
             return true;
         }
         return false;

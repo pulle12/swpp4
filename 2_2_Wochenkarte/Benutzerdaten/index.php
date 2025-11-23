@@ -9,13 +9,23 @@ require_once 'CookieHelper.php';
 $u = new Benutzer();
 $message = '';
 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "benutzerdaten";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 if(CookieHelper::isAllowed()) {
     if (isset($_POST["submit"])) {
         $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
         $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
 
         if ($u->login()) {
-            $u->save();
+            $u->save($conn);
             $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
             header("Location: wochenkarte.php");
             exit();
@@ -42,6 +52,7 @@ if(CookieHelper::isAllowed()) {
     exit;
 }
 
+//save besser verwenden (datenbank?)
 //Mehrmaliges Öffnen des internen Bereichs muss mit einmaliger Authentifikation möglich sein
 //Integration einer Cookie Abfrage auf der Startseite
 //Datenbankanbindung für die User-Validierungs-Abfragen einrichten
