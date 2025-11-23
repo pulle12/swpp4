@@ -9,7 +9,7 @@ require_once 'CookieHelper.php';
 $u = new Benutzer();
 $message = '';
 
-if(isset($COOKIE['cookieConsent'])) {
+if(CookieHelper::isAllowed()) {
     if (isset($_POST["submit"])) {
         $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
         $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
@@ -29,11 +29,18 @@ if(isset($COOKIE['cookieConsent'])) {
     }
 } else {
     // Cookie-Banner anzeigen
-    echo '<div id="cookie-banner">Bitte akzeptieren Sie die Cookies. <button onclick="acceptCookies()">Akzeptieren</button></div>';
+    echo '<h1 class="mt-5 mb-4 text-center">Wochenkarte</h1>';
+    echo '<h2 class="mt-5 mb-4 text-center">Willkommen</h2>';
+    echo '<h4 class="mt-5 mb-4 text-center">Diese Website verwendet Cookies.</h4>';
+    echo '<form action="index.php" method="post">
+        <input type="submit" name="cookieConsent" value="Akzeptieren"/>
+    </form>';
+    if (isset($_POST["cookieConsent"])) {
+        CookieHelper::setCookie('cookieConsent', 1);
+    }
     exit;
 }
 
-//Cookie-Zustimmung sollte funktionieren (einrichten) und dann bootstrap verwenden dafür
 //Mehrmaliges Öffnen des internen Bereichs muss mit einmaliger Authentifikation möglich sein
 //Integration einer Cookie Abfrage auf der Startseite
 //Datenbankanbindung für die User-Validierungs-Abfragen einrichten
@@ -76,4 +83,5 @@ if(isset($COOKIE['cookieConsent'])) {
     </div>
 </div>
 </body>
+<script src="js/script.js" async defer></script>
 </html>
