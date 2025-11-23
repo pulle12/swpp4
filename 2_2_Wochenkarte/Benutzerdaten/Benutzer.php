@@ -106,19 +106,31 @@ class Benutzer
         return $this->errors;
     }
 
-    //Datenbank-Anbindung
+	public static function get($email, $password, $conn) {
+        $user = null;
+        $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result && $result->num_rows > 0) {
+            $user = new self();
 
-	public static function get($email, $password) {
-        return null;
-        //Rückgabe: User-Objekt oder null
+        }
+        return $user;
     }
 
-	public function login() {
+	public function login($conn) {
         if ($this->validate()) {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['email'] = $this->getEmail();
-            $_SESSION['password'] = $this->getPassword();
-            return true;
+            $user = Benutzer::get($this->getEmail(), $this->getPassword(), $conn);
+            if ($user !== null) {
+                $_SESSION['logged_in'] = true;
+                $_SESSION['email'] = $this->getEmail();
+                $_SESSION['password'] = $this->getPassword();
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     }

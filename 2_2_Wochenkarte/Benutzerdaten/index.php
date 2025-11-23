@@ -20,12 +20,11 @@ if ($conn->connect_error) {
 }
 
 if(CookieHelper::isAllowed()) {
-    if (isset($_POST["submit"])) {
+    if (isset($_POST["login"])) {
         $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
         $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
 
-        if ($u->login()) {
-            $u->save($conn);
+        if ($u->login($conn)) {
             $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
             header("Location: wochenkarte.php");
             exit();
@@ -37,6 +36,20 @@ if(CookieHelper::isAllowed()) {
             $message .= "</ul></div>";
         }
     }
+
+    if (isset($_POST["create"])) {
+        $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
+        $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
+
+        if ($u->validate()) {
+            $u->save($conn);
+        }
+    }
+
+    if(isset($_POST['rejectCookies'])) {
+        CookieHelper::deleteCookie('cookieConsent', 1);
+        header("Location: index.php");
+    }
 } else {
     // Cookie-Banner anzeigen
     echo '<h1 class="mt-5 mb-4 text-center">Wochenkarte</h1>';
@@ -47,6 +60,9 @@ if(CookieHelper::isAllowed()) {
     </form>';
     if (isset($_POST["cookieConsent"])) {
         CookieHelper::setCookie('cookieConsent', 1);
+        CookieHelper::setCookie('user_ip', $_SERVER['REMOTE_ADDR']);
+        CookieHelper::setCookie('lang', "de");
+        CookieHelper::setCookie('user_agent', $_SERVER['HTTP_USER_AGENT']);
         header("Location: index.php");
     }
     exit;
@@ -82,13 +98,37 @@ if(CookieHelper::isAllowed()) {
                     <div class="mb-3">
                         <label for="email" class="form-label">Bitte anmelden</label>
                         <input type="email" class="form-control <?= $u->hasError('email') ? 'is-invalid' : '' ?>" id="email" name="email"
-                               value="<?= htmlspecialchars($u->getEmail()) ?>" placeholder="E-Mail eingeben" required>
+                               value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['email']) : ''; ?>" placeholder="E-Mail eingeben" required>
                     </div>
                     <div class="mb-3">
                         <input type="password" class="form-control <?= $u->hasError('password') ? 'is-invalid' : '' ?>" id="password" name="password"
-                               value="<?= htmlspecialchars($u->getPassword()) ?>" placeholder="Passwort" required>
+                               value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['password']) : ''; ?>" placeholder="Passwort" required>
                     </div>
-                    <button name="submit" type="submit" class="btn btn-primary w-100">Anmelden</button>
+                    <button name="login" type="submit" class="btn btn-primary w-100">Anmelden</button>
+                </form>
+            </div>
+            <p style="padding-bottom: 20px;"></p>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <form method="POST" id="create_users" action="index.php">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Neuen Benutzer registrieren</label>
+                        <input type="email" class="form-control <?= $u->hasError('email') ? 'is-invalid' : '' ?>" id="email" name="email"
+                               value="<?= isset($_POST['create']) ? htmlspecialchars($_POST['email']) : ''; ?>" placeholder="E-Mail eingeben" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control <?= $u->hasError('password') ? 'is-invalid' : '' ?>" id="password" name="password"
+                               value="<?= isset($_POST['create']) ? htmlspecialchars($_POST['password']) : ''; ?>" placeholder="Passwort" required>
+                    </div>
+                    <button name="create" type="submit" class="btn btn-primary w-100">Registrieren</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4">
+                <form method="POST" id="logout" action="index.php"">
+                    <button name="rejectCookies" type="submit" class="btn btn-secondary w-100">Cookies nicht mehr zustimmen</button>
                 </form>
             </div>
         </div>
