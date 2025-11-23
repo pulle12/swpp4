@@ -7,6 +7,8 @@ class CookieHelper
         if(isset($_COOKIE['cookieConsent'])) {
             return true;
         } else {
+            session_destroy();
+            setcookie(session_name(), '', time() - 3600, '/');
             return false;
         }
     }

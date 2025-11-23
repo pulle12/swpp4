@@ -17,6 +17,7 @@ if(CookieHelper::isAllowed()) {
         if ($u->validate()) {
             $u->save();
             $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+            $_SESSION['logged_in'] = true;
             header("Location: wochenkarte.php");
             exit();
         } else {
@@ -37,6 +38,7 @@ if(CookieHelper::isAllowed()) {
     </form>';
     if (isset($_POST["cookieConsent"])) {
         CookieHelper::setCookie('cookieConsent', 1);
+        header("Location: index.php");
     }
     exit;
 }
