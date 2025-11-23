@@ -1,3 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="" crossorigin="anonymous">
+
+    <title>Wochenkarte</title>
+</head>
 <?php
 
 session_start();
@@ -51,13 +63,14 @@ if(CookieHelper::isAllowed()) {
         header("Location: index.php");
     }
 } else {
-    // Cookie-Banner anzeigen
+    echo '<div class="container" style="width: 20%">';
     echo '<h1 class="mt-5 mb-4 text-center">Wochenkarte</h1>';
     echo '<h2 class="mt-5 mb-4 text-center">Willkommen</h2>';
     echo '<h4 class="mt-5 mb-4 text-center">Diese Website verwendet Cookies.</h4>';
     echo '<form action="index.php" method="post">
-        <input type="submit" name="cookieConsent" value="Akzeptieren"/>
+        <input class="btn btn-primary w-100" type="submit" name="cookieConsent" value="Akzeptieren"/>
     </form>';
+    echo '</div>';
     if (isset($_POST["cookieConsent"])) {
         CookieHelper::setCookie('cookieConsent', 1);
         CookieHelper::setCookie('user_ip', $_SERVER['REMOTE_ADDR']);
@@ -73,18 +86,6 @@ if(CookieHelper::isAllowed()) {
 //Integration einer Cookie Abfrage auf der Startseite
 //Datenbankanbindung für die User-Validierungs-Abfragen einrichten
 ?>
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="" crossorigin="anonymous">
-
-    <title>Wochenkarte</title>
-</head>
 <body>
 <div class="container">
     <h1 class="mt-5 mb-4 text-center">Wochenkarte</h1>

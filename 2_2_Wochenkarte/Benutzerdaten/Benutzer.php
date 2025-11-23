@@ -2,7 +2,6 @@
 
 class Benutzer
 {
-    private $id;
     private $email;
     private $password;
 
@@ -11,7 +10,6 @@ class Benutzer
     private $errors = [];
 
     /**
-     * @param $id
      * @param $email
      * @param $password
      */
@@ -20,21 +18,6 @@ class Benutzer
 
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return mixed
