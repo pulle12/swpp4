@@ -7,13 +7,16 @@ class CookieHelper
         if(isset($_COOKIE['cookieConsent'])) {
             return true;
         } else {
-            session_destroy();
-            setcookie(session_name(), '', time() - 3600, '/');
+            Benutzer::logout();
             return false;
         }
     }
 
     public static function setCookie($name, $value) {
         setcookie($name, $value, time() + (86400 * 30), "/");
+    }
+
+    public static function deleteCookie($name, $value) {
+        setcookie($name, $value, time() - (86400 * 30), "/");
     }
 }

@@ -114,12 +114,20 @@ class Benutzer
     }
 
 	public function login() {
-        return null;
-        //Rückgabe: boolean
+        if ($this->validate()) {
+            $_SESSION['logged_in'] = true;
+            $_SESSION['email'] = $this->getEmail();
+            $_SESSION['password'] = $this->getPassword();
+            return true;
+        }
+        return false;
     }
 
 	public static function logout() {
-        return null;
+        $_SESSION = [];
+        session_destroy();
+        setcookie(session_name(), '', time() - 3600, '/');
+        return true;
     }
 
     /**
@@ -147,8 +155,6 @@ class Benutzer
         }
         return false;
     }
-
-
 
 }
 

@@ -14,10 +14,9 @@ if(CookieHelper::isAllowed()) {
         $u->setEmail( isset($_POST["email"]) ? $_POST["email"] : "");
         $u->setPassword( isset($_POST["password"]) ? $_POST["password"] : "");
 
-        if ($u->validate()) {
+        if ($u->login()) {
             $u->save();
             $message = "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
-            $_SESSION['logged_in'] = true;
             header("Location: wochenkarte.php");
             exit();
         } else {
@@ -57,7 +56,7 @@ if(CookieHelper::isAllowed()) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" integrity="" crossorigin="anonymous">
 
-    <title>Benutzerdaten</title>
+    <title>Wochenkarte</title>
 </head>
 <body>
 <div class="container">
