@@ -80,11 +80,6 @@ if(CookieHelper::isAllowed()) {
     }
     exit;
 }
-
-//save besser verwenden (datenbank?)
-//Mehrmaliges Öffnen des internen Bereichs muss mit einmaliger Authentifikation möglich sein
-//Integration einer Cookie Abfrage auf der Startseite
-//Datenbankanbindung für die User-Validierungs-Abfragen einrichten
 ?>
 <body>
 <div class="container">
