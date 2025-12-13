@@ -1,0 +1,51 @@
+name: Auto Update Submodules
+on:
+  schedule:
+    # Läuft täglich um 8 Uhr morgens (Cron-Syntax)
+    - cron: '0 8 * * *'
+
+  workflow_dispatch:
+    # Optional: Input-Felder für manuelles Starten
+    inputs:
+      update_message:
+        description: 'Commit Message für Update'
+        required: false
+        default: 'Manual: Update submodules'
+      force_update:
+        description: 'Forciere Update auch ohne Änderungen?'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Repository auschecken (MIT Submodules!)
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 2. Submodules aktualisieren
+      - name: Update all submodules to latest
+        run: |
+          git submodule update --remote --merge
+
+          # Check if there were changes
+          if git diff --quiet; then
+            echo "No changes in submodules"
+            exit 0
+          fi
+
+      # 3. Änderungen committen und pushen
+      - name: Commit and push if changes
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .
+          git commit -m "🤖 Auto-update submodules [$(date +'%Y-%m-%d %H:%M')]"
+          git push
