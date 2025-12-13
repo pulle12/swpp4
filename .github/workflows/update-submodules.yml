@@ -1,8 +1,8 @@
 name: Auto Update Submodules
 on:
-  schedule:
+  # schedule:
     # Läuft täglich um 8 Uhr morgens (Cron-Syntax)
-    - cron: '0 8 * * *'
+    # - cron: '0 8 * * *'
 
   workflow_dispatch:
     # Optional: Input-Felder für manuelles Starten
