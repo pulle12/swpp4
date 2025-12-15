@@ -1,6 +1,6 @@
 [submodule "2_3_Warenkorb"]
 	path = 2_3_Warenkorb
 	url = https://github.com/pulle12/2_3_Warenkorb.git
-[submodule "passwortmanager-angabe"]
-	path = passwortmanager-angabe
+[submodule "3_1_Passwortmanager"]
+	path = 3_1_Passwortmanager
 	url = https://github.com/pulle12/passwortmanager.git
