@@ -4,3 +4,4 @@
 [submodule "3_1_Passwortmanager"]
 	path = 3_1_Passwortmanager
 	url = https://github.com/pulle12/3_1_Passwortmanager.git
+        branch = main
