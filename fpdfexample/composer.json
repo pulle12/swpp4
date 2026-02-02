@@ -1,0 +1,13 @@
+{
+    "name": "summe/fpdfexample",
+    "authors": [
+        {
+            "name": "pulle12",
+            "email": "psummerauer@tsn.at"
+        }
+    ],
+    "require": {
+        "setasign/fpdf": "^1.8",
+        "chillerlan/php-qrcode": "^5.0"
+    }
+}
