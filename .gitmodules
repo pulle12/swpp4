@@ -8,3 +8,6 @@
 [submodule "3_3_CMS"]
 	path = 3_3_CMS
 	url = https://github.com/pulle12/3_3_CMS.git
+[submodule "visitenkarte"]
+	path = visitenkarte
+	url = https://github.com/pulle12/visitenkarte.git
