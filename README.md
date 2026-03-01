@@ -1,0 +1,2 @@
+# Amerkung zu Commit-Nachrichten
+Durch meine kontinuierliche Fortbildung im IT-Bereich bin ich auf das Konzept "semantischer Commit Messages" aufmerksam geworden. Spätestens seit 3_1_Passwortmanager / 4_1_Passwortmanager (Fortführung von Passwortmanager 1.0 zu 2.0) nutze ich dieses Schema konsequent in meinen Projekten. Eine kurze Erläuterung sowie mein Gist-Fork dazu: [https://gist.github.com/pulle12/133d143cd5e997bab25dacdef6c3a5b3].
