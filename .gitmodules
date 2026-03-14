@@ -11,3 +11,6 @@
 [submodule "visitenkarte"]
 	path = visitenkarte
 	url = https://github.com/pulle12/visitenkarte.git
+[submodule "4_2_Wetterstation"]
+	path = 4_2_Wetterstation
+	url = https://github.com/pulle12/4_2_Wetterstation.git
