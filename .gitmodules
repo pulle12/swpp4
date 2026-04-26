@@ -14,3 +14,6 @@
 [submodule "4_2_Wetterstation"]
 	path = 4_2_Wetterstation
 	url = https://github.com/pulle12/4_2_Wetterstation.git
+[submodule "4_3_CryptoApp"]
+	path = 4_3_CryptoApp
+	url = https://github.com/pulle12/4_3_CryptoApp.git
